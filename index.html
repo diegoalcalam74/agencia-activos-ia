@@ -101,28 +101,4 @@
         </div>
     </div>
 
-    <script>
-        // Simulación de logs
-        const activityFeed = document.getElementById('activityFeed');
-        setInterval(() => {
-            const log = document.createElement('p');
-            log.innerText = `Log: Línea de actividad generada - ${new Date().toLocaleTimeString()}`;
-            activityFeed.appendChild(log);
-            activityFeed.scrollTop = activityFeed.scrollHeight; // Desplazar a la última actividad
-        }, 30000); // Cada 30 segundos
-
-        // Efecto de "latido"
-        const statusUnits = document.querySelectorAll('.glass');
-        setInterval(() => {
-            statusUnits.forEach(unit => {
-                unit.classList.toggle('ring-2', true);
-                setTimeout(() => {
-                    unit.classList.toggle('ring-2', false);
-                }, 500);
-            });
-        }, 2000); // Cada 2 segundos
-    </script>
-</body>
-
-</html>
-
+  
