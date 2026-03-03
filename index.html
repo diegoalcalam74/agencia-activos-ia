@@ -1,0 +1,82 @@
+// pages/index.tsx
+
+import React from 'react';
+
+const Dashboard = () => {
+  const unitsStatus = {
+    RADAR: 'Activo',
+    ESTRUCTURA: 'Inactivo',
+    PLUMA: 'Activo',
+    MONETIZADOR: 'Activo',
+  };
+
+  const activityTimeline = [
+    { date: '02/03/2026', activity: 'Unidad ESTRUCTURA: Despliegue de código base completado' },
+    { date: '02/03/2026', activity: 'Unidad PLUMA: Primer artículo redactado' },
+  ];
+
+  const activeProjects = [
+    { name: 'Proyecto 1', niche: 'Ahorro Energético', seoStatus: 'Pendiente', adsenseStatus: 'Pendiente' },
+    { name: 'Proyecto 2', niche: 'Organización Personal', seoStatus: 'Aprobado', adsenseStatus: 'Aprobado' },
+  ];
+
+  return (
+    <div className="bg-gray-900 text-white min-h-screen p-5">
+      <h1 className="text-4xl font-bold">Consola de Mando "GÉNESIS"</h1>
+      <div className="mt-5">
+        <h2 className="text-2xl">Estado de las Unidades</h2>
+        <div className="grid grid-cols-2 gap-4 mt-3">
+          {Object.entries(unitsStatus).map(([unit, status]) => (
+            <div key={unit} className="bg-gray-800 p-3 rounded shadow">
+              <h3 className="text-lg font-semibold">{unit}</h3>
+              <p>{status}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="mt-5">
+        <h2 className="text-2xl">Timeline de Actividad</h2>
+        <ul className="mt-3">
+          {activityTimeline.map(({ date, activity }, index) => (
+            <li key={index} className="bg-gray-800 p-3 my-2 rounded shadow">
+              <strong>{date}:</strong> {activity}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className="mt-5">
+        <h2 className="text-2xl">Proyectos Activos</h2>
+        <table className="table-auto w-full mt-3">
+          <thead>
+            <tr className="bg-gray-800">
+              <th className="px-4 py-2">Nombre de la Web</th>
+              <th className="px-4 py-2">Nicho</th>
+              <th className="px-4 py-2">Estado de SEO</th>
+              <th className="px-4 py-2">Estado de AdSense</th>
+            </tr>
+          </thead>
+          <tbody>
+            {activeProjects.map(({ name, niche, seoStatus, adsenseStatus }, index) => (
+              <tr key={index} className="bg-gray-700">
+                <td className="px-4 py-2">{name}</td>
+                <td className="px-4 py-2">{niche}</td>
+                <td className="px-4 py-2">{seoStatus}</td>
+                <td className="px-4 py-2">{adsenseStatus}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div className="mt-5">
+        <h2 className="text-2xl">Próximos Pasos</h2>
+        <ul className="mt-3">
+          <li className="bg-gray-800 p-3 my-2 rounded shadow">1. Completar el contenido para la herramienta.</li>
+          <li className="bg-gray-800 p-3 my-2 rounded shadow">2. Optimizar el SEO técnico.</li>
+          <li className="bg-gray-800 p-3 my-2 rounded shadow">3. Iniciar el proceso de monetización con AdSense.</li>
+        </ul>
+      </div>
+    </div>
+  );
+};
+
+export default Dashboard;
