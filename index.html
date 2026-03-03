@@ -1,104 +1,84 @@
-<!DOCTYPE html>
-<html lang="es">
+// pages/index.tsx
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Sistema GÉNESIS</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    <style>
-        body {
-            background-color: #020617;
-        }
+import React, { useEffect, useState } from 'react';
 
-        .glass {
-            background: rgba(15, 23, 42, 0.65);
-            backdrop-filter: blur(10px);
-            border-radius: 10px;
-            border: 1px solid rgba(0, 0, 0, 0.2);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        }
+const Dashboard = () => {
+    const [logs, setLogs] = useState([]);
+    const [status, setStatus] = useState({
+        RADAR: 'Inactivo',
+        ESTRUCTURA: 'Inactivo',
+        PLUMA: 'Inactivo',
+        MONETIZADOR: 'Inactivo',
+    });
 
-        .sidebar {
-            background-color: #0f172a;
-        }
+    const generateRandomLog = () => {
+        const timestamp = new Date().toLocaleTimeString();
+        const logMessage = `Log: Línea de actividad generada - ${timestamp}`;
+        setLogs(prevLogs => [...prevLogs, logMessage]);
+    };
 
-        .active {
-            border-left: 4px solid #00ffcc;
-        }
+    const toggleStatus = () => {
+        setStatus(prevStatus => ({
+            ...prevStatus,
+            RADAR: prevStatus.RADAR === 'Activo' ? 'Inactivo' : 'Activo',
+            ESTRUCTURA: prevStatus.ESTRUCTURA === 'Activo' ? 'Inactivo' : 'Activo',
+            PLUMA: prevStatus.PLUMA === 'Activo' ? 'Inactivo' : 'Activo',
+            MONETIZADOR: prevStatus.MONETIZADOR === 'Activo' ? 'Inactivo' : 'Activo',
+        }));
+    };
 
-        .hover-effect:hover {
-            filter: brightness(1.1);
-        }
-    </style>
-</head>
+    useEffect(() => {
+        const logInterval = setInterval(generateRandomLog, 30000);
+        const statusInterval = setInterval(toggleStatus, 2000);
+        return () => {
+            clearInterval(logInterval);
+            clearInterval(statusInterval);
+        };
+    }, []);
 
-<body>
-    <div class="flex h-screen">
-        <nav class="sidebar w-1/4 p-5">
-            <h1 class="text-2xl font-bold text-white">Sistema GÉNESIS</h1>
-            <ul class="mt-10">
-                <li class="my-2">
-                    <a href="#" class="text-white hover:text-green-500">Dashboard</a>
-                </li>
-                <li class="my-2 active">
-                    <a href="#" class="text-white hover:text-green-500">Activos (Webs)</a>
-                </li>
-                <li class="my-2">
-                    <a href="#" class="text-white hover:text-green-500">Investigación RADAR</a>
-                </li>
-                <li class="my-2">
-                    <a href="#" class="text-white hover:text-green-500">Configuración</a>
-                </li>
-            </ul>
-        </nav>
+    return (
+        <div className="flex h-screen bg-gray-900 text-white">
+            <nav className="w-1/4 bg-gray-800 p-5">
+                <h1 className="text-2xl font-bold">Sistema GÉNESIS</h1>
+                <ul className="mt-10">
+                    <li className="my-2"><a href="#" className="text-green-500">Dashboard</a></li>
+                    <li className="my-2"><a href="#" className="text-green-500">Activos (Webs)</a></li>
+                    <li className="my-2"><a href="#" className="text-green-500">Investigación RADAR</a></li>
+                    <li className="my-2"><a href="#" className="text-green-500">Configuración</a></li>
+                </ul>
+            </nav>
 
-        <div class="flex-1 p-5 overflow-y-auto">
-            <h2 class="text-3xl font-bold text-green-500">Estado de la Agencia</h2>
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-5">
-                <div class="glass p-6">
-                    <h3 class="text-xl font-semibold">Unidad RADAR</h3>
-                    <p class="text-lg">Activo</p>
-                    <button class="bg-green-500 hover-effect py-2 px-4 mt-2 rounded" onclick="alert('Proyecto RADAR lanzado!')">Lanzar Proyecto</button>
+            <div className="flex-1 p-5 overflow-y-auto">
+                <h2 className="text-3xl font-bold">Estado de la Agencia</h2>
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-5">
+                    {Object.entries(status).map(([unit, stat]) => (
+                        <div key={unit} className="bg-gray-700 p-6 rounded-lg">
+                            <h3 className="text-xl font-semibold">{unit}</h3>
+                            <p className="text-lg">{stat}</p>
+                            <button className="bg-green-500 hover:bg-green-600 py-2 px-4 mt-2 rounded" onClick={() => alert(`Proyecto ${unit} lanzado!`)}>Lanzar Proyecto</button>
+                        </div>
+                    ))}
                 </div>
-                <div class="glass p-6">
-                    <h3 class="text-xl font-semibold">Unidad ESTRUCTURA</h3>
-                    <p class="text-lg">Inactivo</p>
-                    <button class="bg-green-500 hover-effect py-2 px-4 mt-2 rounded" onclick="alert('Proyecto ESTRUCTURA lanzado!')">Lanzar Proyecto</button>
-                </div>
-                <div class="glass p-6">
-                    <h3 class="text-xl font-semibold">Unidad PLUMA</h3>
-                    <p class="text-lg">Activo</p>
-                    <button class="bg-green-500 hover-effect py-2 px-4 mt-2 rounded" onclick="alert('Proyecto PLUMA lanzado!')">Lanzar Proyecto</button>
-                </div>
-                <div class="glass p-6">
-                    <h3 class="text-xl font-semibold">Unidad MONETIZADOR</h3>
-                    <p class="text-lg">Activo</p>
-                    <button class="bg-green-500 hover-effect py-2 px-4 mt-2 rounded" onclick="alert('Proyecto MONETIZADOR lanzado!')">Lanzar Proyecto</button>
-                </div>
-            </div>
 
-            <div class="glass p-5 mt-5">
-                <h2 class="text-xl font-bold">Monitor de Actividad</h2>
-                <div class="overflow-y-auto max-h-[400px] border-t border-gray-600 mt-2" id="activityFeed">
-                    <p>02/03/2026 - Unidad ESTRUCTURA: Despliegue de código base completado.</p>
-                    <p>02/03/2026 - Unidad PLUMA: Primer artículo redactado.</p>
-
-                    <p>02/03/2026 - Unidad MONETIZADOR: Análisis de flujo de pago completado.</p>
+                <div className="bg-gray-700 p-5 mt-5">
+                    <h2 className="text-xl font-bold">Monitor de Actividad</h2>
+                    <div className="overflow-y-auto max-h-[400px] border-t border-gray-600 mt-2 p-2">
+                        {logs.map((log, index) => <p key={index}>{log}</p>)}
+                    </div>
                 </div>
-            </div>
 
-            <div class="glass p-5 mt-5">
-                <h2 class="text-xl font-bold">Gráfico de Progreso</h2>
-                <div class="mt-2">
-                    <p>Tareas completadas hoy: <span class="text-green-500 font-bold">7/10</span></p>
-                    <div class="w-full bg-gray-700 h-2 rounded-full">
-                        <div class="bg-green-500 h-2 rounded-full" style="width: 70%;"></div>
+                <div className="bg-gray-700 p-5 mt-5">
+                    <h2 className="text-xl font-bold">Gráfico de Progreso</h2>
+                    <div className="mt-2">
+                        <p>Tareas completadas hoy: <span className="text-green-500 font-bold">7/10</span></p>
+                        <div className="w-full bg-gray-600 h-2 rounded-full">
+                            <div className="bg-green-500 h-2 rounded-full" style={{ width: '70%' }}></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    );
+};
 
-  
+export default Dashboard;
