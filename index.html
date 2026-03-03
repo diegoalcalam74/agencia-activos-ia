@@ -1,82 +1,96 @@
-// pages/index.tsx
+<!DOCTYPE html>
+<html lang="es">
 
-import React from 'react';
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Sistema GÉNESIS</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        body {
+            background-color: #020617;
+        }
 
-const Dashboard = () => {
-  const unitsStatus = {
-    RADAR: 'Activo',
-    ESTRUCTURA: 'Inactivo',
-    PLUMA: 'Activo',
-    MONETIZADOR: 'Activo',
-  };
+        .glass {
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
 
-  const activityTimeline = [
-    { date: '02/03/2026', activity: 'Unidad ESTRUCTURA: Despliegue de código base completado' },
-    { date: '02/03/2026', activity: 'Unidad PLUMA: Primer artículo redactado' },
-  ];
+        .sidebar {
+            background-color: #0f172a;
+        }
 
-  const activeProjects = [
-    { name: 'Proyecto 1', niche: 'Ahorro Energético', seoStatus: 'Pendiente', adsenseStatus: 'Pendiente' },
-    { name: 'Proyecto 2', niche: 'Organización Personal', seoStatus: 'Aprobado', adsenseStatus: 'Aprobado' },
-  ];
+        .active {
+            border-left: 4px solid #00ffcc;
+        }
+    </style>
+</head>
 
-  return (
-    <div className="bg-gray-900 text-white min-h-screen p-5">
-      <h1 className="text-4xl font-bold">Consola de Mando "GÉNESIS"</h1>
-      <div className="mt-5">
-        <h2 className="text-2xl">Estado de las Unidades</h2>
-        <div className="grid grid-cols-2 gap-4 mt-3">
-          {Object.entries(unitsStatus).map(([unit, status]) => (
-            <div key={unit} className="bg-gray-800 p-3 rounded shadow">
-              <h3 className="text-lg font-semibold">{unit}</h3>
-              <p>{status}</p>
+<body>
+    <div class="flex h-screen">
+        <nav class="sidebar w-1/4 p-5">
+            <h1 class="text-2xl font-bold text-white">Sistema GÉNESIS</h1>
+            <ul class="mt-10">
+                <li class="my-2">
+                    <a href="#" class="text-white hover:text-green-500">Dashboard</a>
+                </li>
+                <li class="my-2 active">
+                    <a href="#" class="text-white hover:text-green-500">Activos (Webs)</a>
+                </li>
+                <li class="my-2">
+                    <a href="#" class="text-white hover:text-green-500">Investigación RADAR</a>
+                </li>
+                <li class="my-2">
+                    <a href="#" class="text-white hover:text-green-500">Configuración</a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="flex-1 p-5 overflow-y-auto">
+            <h2 class="text-3xl font-bold text-green-500">Estado de la Agencia</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-5">
+                <div class="glass p-6">
+                    <h3 class="text-xl font-semibold">Unidad RADAR</h3>
+                    <p class="text-lg">Activo</p>
+                </div>
+                <div class="glass p-6">
+                    <h3 class="text-xl font-semibold">Unidad ESTRUCTURA</h3>
+                    <p class="text-lg">Inactivo</p>
+                </div>
+                <div class="glass p-6">
+                    <h3 class="text-xl font-semibold">Unidad PLUMA</h3>
+                    <p class="text-lg">Activo</p>
+                </div>
+                <div class="glass p-6">
+                    <h3 class="text-xl font-semibold">Unidad MONETIZADOR</h3>
+                    <p class="text-lg">Activo</p>
+                </div>
             </div>
-          ))}
-        </div>
-      </div>
-      <div className="mt-5">
-        <h2 className="text-2xl">Timeline de Actividad</h2>
-        <ul className="mt-3">
-          {activityTimeline.map(({ date, activity }, index) => (
-            <li key={index} className="bg-gray-800 p-3 my-2 rounded shadow">
-              <strong>{date}:</strong> {activity}
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div className="mt-5">
-        <h2 className="text-2xl">Proyectos Activos</h2>
-        <table className="table-auto w-full mt-3">
-          <thead>
-            <tr className="bg-gray-800">
-              <th className="px-4 py-2">Nombre de la Web</th>
-              <th className="px-4 py-2">Nicho</th>
-              <th className="px-4 py-2">Estado de SEO</th>
-              <th className="px-4 py-2">Estado de AdSense</th>
-            </tr>
-          </thead>
-          <tbody>
-            {activeProjects.map(({ name, niche, seoStatus, adsenseStatus }, index) => (
-              <tr key={index} className="bg-gray-700">
-                <td className="px-4 py-2">{name}</td>
-                <td className="px-4 py-2">{niche}</td>
-                <td className="px-4 py-2">{seoStatus}</td>
-                <td className="px-4 py-2">{adsenseStatus}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <div className="mt-5">
-        <h2 className="text-2xl">Próximos Pasos</h2>
-        <ul className="mt-3">
-          <li className="bg-gray-800 p-3 my-2 rounded shadow">1. Completar el contenido para la herramienta.</li>
-          <li className="bg-gray-800 p-3 my-2 rounded shadow">2. Optimizar el SEO técnico.</li>
-          <li className="bg-gray-800 p-3 my-2 rounded shadow">3. Iniciar el proceso de monetización con AdSense.</li>
-        </ul>
-      </div>
-    </div>
-  );
-};
 
-export default Dashboard;
+            <div class="glass p-5 mt-5">
+                <h2 class="text-xl font-bold">Monitor de Actividad</h2>
+                <div class="overflow-y-scroll h-32 border-t border-gray-600 mt-2">
+                    <p>02/03/2026 - Unidad ESTRUCTURA: Despliegue de código base completado.</p>
+                    <p>02/03/2026 - Unidad PLUMA: Primer artículo redactado.</p>
+                    <p>02/03/2026 - Unidad MONETIZADOR: Análisis de flujo de pago completado.</p>
+                </div>
+            </div>
+
+            <div class="glass p-5 mt-5">
+                <h2 class="text-xl font-bold">Gráfico de Progreso</h2>
+                <div class="mt-2">
+                    <p>Tareas completadas hoy: <span class="text-green-500 font-bold">7/10</span></p>
+                    <div class="w-full bg-gray-700 h-2 rounded-full">
+                        <div class="bg-green-500 h-2 rounded-full" style="width: 70%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
